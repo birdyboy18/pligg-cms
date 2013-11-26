@@ -3,7 +3,7 @@
 *************************************}
 <!-- header.tpl -->
 <header role="banner" class="navbar navbar-inverse navbar-fixed-top custom_header">
-	<div class="container">
+	<!--<div class="container">-->
 		<div class="navbar-header">
 			<button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle">
 				<span class="sr-only">Toggle navigation</span>
@@ -11,9 +11,19 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{$my_base_url}{$my_pligg_base}">{#PLIGG_Visual_Name#}</a>			
+			<a class="navbar-brand" href="{$my_base_url}{$my_pligg_base}"><i class="fa fa-bars"></i>{#PLIGG_Visual_Name#}</a>			
 		</div>
-		<nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+		<!-- Search Box start -->
+		<div class="search-wrap">
+			{include file=$the_template."/search_box.tpl"}
+		</div>
+		<div class="submit pull-right">
+			{checkActionsTpl location="tpl_pligg_submit_link_start"}
+				<a href="{$URL_submit}">{#PLIGG_Visual_Submit_A_New_Story#}</a>
+				{checkActionsTpl location="tpl_pligg_submit_link_end"}
+		</div>
+		<!-- search Box End -->
+		<!--<nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li {if $pagename eq "published" || $pagename eq "index"}class="active"{/if}><a href="{$my_base_url}{$my_pligg_base}">{#PLIGG_Visual_Home#}</a></li>
 				{checkActionsTpl location="tpl_pligg_navbar_start"}
@@ -52,8 +62,8 @@
 				{if isset($isadmin) && $isadmin eq 1}
 					<li><a href="{$URL_admin}"><span>{#PLIGG_Visual_Header_AdminPanel#}</span></a></li>
 				{/if}
-			</ul>
-			{*
+			</ul>-->
+			<!--{*
 			<script type="text/javascript">
 				{if !isset($searchboxtext)}
 					{assign var=searchboxtext value=#PLIGG_Visual_Search_SearchDefaultText#}			
@@ -110,10 +120,10 @@
 						<li><a href="{$URL_logout}">{#PLIGG_Visual_Logout#}</a></li>
 					</ul>
 				</div>
-				<!--/$user_authenticated -->
+				/$user_authenticated
 			{/if}
 			
-		</nav>
-	</div>
+		</nav> -->
+	<!--</div>-->
 </header>
 <!--/header.tpl -->

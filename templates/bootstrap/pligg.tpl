@@ -17,6 +17,16 @@
 	<link rel="stylesheet" type="text/css" href="{$my_pligg_base}/templates/{$the_template}/css/star_rating/star.css" media="screen" />
 	{/if}
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	{literal}
+	<script>
+		$(document).ready(function(){
+			$('.navbar-brand').click(function(e){
+				e.preventDefault();
+				$('.sidebar').toggleClass('open');
+			})
+		});
+	</script>
+	{/literal}
 	{checkForCss}
 	{checkForJs}
 	
@@ -75,15 +85,16 @@
 	{/if}
 	
 	{checkActionsTpl location="tpl_pligg_body_start"}
-	
+	<div class="sidebar">
+		{include file=$the_template."/sidebar_menu.tpl"}
+	</div>
 	<!-- START HEADER -->
 		{include file=$tpl_header.".tpl"}
 	<!-- END HEADER -->
-	
+	<div id="main">
 	<!-- START CATEGORIES -->
-		{include file=$the_template."/categories.tpl"}
+		
 	<!-- END CATEGORIES -->
-	
 	<div class="container">
 		<section id="maincontent">
 			<div class="row">
@@ -91,10 +102,10 @@
 			{if $pagename eq "submit" || $pagename eq "user" || $pagename eq "profile" || $pagename eq "user_edit" || $pagename eq "register" || $pagename eq "login"}
 				<div class="col-md-12">
 			{else}
-				<div class="col-md-9">
+				<div class="col-md-12">
 			{/if}
 					<!-- START BREADCRUMB -->
-						{include file=$the_template"/breadcrumb.tpl"}
+						
 					<!-- END BREADCRUMB -->
 					
 					{literal}
@@ -123,18 +134,7 @@
 				
 				{if $pagename neq "submit" && $pagename neq "user" && $pagename neq "profile" && $pagename neq "user_edit" && $pagename neq "register" && $pagename neq "login"}
 					<!-- START RIGHT COLUMN -->
-					<div class="col-md-3">
-						<div class="panel panel-default">
-							<div id="rightcol" class="panel-body">
-								<!-- START FIRST SIDEBAR -->
-									{include file=$tpl_first_sidebar.".tpl"}
-								<!-- END FIRST SIDEBAR -->
-								<!-- START SECOND SIDEBAR -->
-									{include file=$tpl_second_sidebar.".tpl"}
-								<!-- END SECOND SIDEBAR -->
-							</div>
-						</div><!--/.panel -->
-					</div><!--/span-->
+					
 					<!-- END RIGHT COLUMN -->
 				{/if}
 			{checkActionsTpl location="tpl_pligg_banner_bottom"}
@@ -150,6 +150,7 @@
 		{/if}
 		
 	</div><!--/.container-->
+</div>
 	
 	<!-- START COMMON JAVASCRIPT FUNCTIONS -->
 	{include file=$the_template"/functions/common.tpl"}

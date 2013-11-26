@@ -559,7 +559,7 @@ function do_submit3() {
 	if ($vars['redirect']) {
 	    header('Location: '.$vars['redirect']);
 	} elseif($linkres->link_group_id == 0){
-		header("Location: " . getmyurl('new'));
+		header("Location: " . getmyurl('index'));
 	} else {
 		$redirect = getmyurl("group_story", $linkres->link_group_id);
 		header("Location: $redirect");

@@ -3,7 +3,7 @@
 *************************************}
 <!-- link_summary.tpl -->
 {checkActionsTpl location="tpl_link_summary_start"}
-<div class="stories" id="xnews-{$link_shakebox_index}" {* if $link_shakebox_currentuser_reports gt 0} style="opacity:0.5;filter:alpha(opacity = 50)"{/if *}>
+<div class="stories col-md-4" id="xnews-{$link_shakebox_index}" {* if $link_shakebox_currentuser_reports gt 0} style="opacity:0.5;filter:alpha(opacity = 50)"{/if *}>
 	{if $isadmin || $user_logged_in eq $link_submitter}
 		<div class="btn-group pull-right admin-links">
 			<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
@@ -27,6 +27,22 @@
 		</div>		
 	{/if}
 	{checkActionsTpl location="tpl_pligg_story_start"}
+	<!--<div class="source">
+		{if $url_short neq "http://" && $url_short neq "://"}
+					<i class="fa fa-globe"></i>
+					<a href="{$url}" {if $open_in_new_window eq true} target="_blank"{/if}  {if $story_status neq "published"}rel="nofollow"{/if}>{$url_short}</a>
+				{/if}
+	</div> -->
+	<div class="meta">
+		<div class="category">
+				<a href="{$category_url}">{$link_category}</a>
+				{if $link_additional_cats}
+					{foreach from=$link_additional_cats item=catname key=caturl}
+						<a href="{$caturl}">{$catname}</a>
+					{/foreach}
+				{/if}
+		</div>
+	</div>
 	<div class="headline">
 		{if $Voting_Method eq 2}
 			<h4 id="ls_title-{$link_shakebox_index}">
@@ -104,34 +120,20 @@
 				{/if}
 				{checkActionsTpl location="tpl_pligg_story_title_end"}
 			</h2>
-			<span class="subtext">
-				{if $UseAvatars neq "0"}<span id="ls_avatar-{$link_shakebox_index}"><img src="{$Avatar_ImgSrcs}" width="16px" height="16px" alt="" title="Avatar" /></span>{else}<i class="fa fa-user"></i>{/if}
-				<a href="{$submitter_profile_url}">{$link_submitter}{if $submitter_rank neq ''} (#{$submitter_rank}){/if}</a> 
+			<span class="tags clearfix">
+				<!--{if $UseAvatars neq "0"}<span id="ls_avatar-{$link_shakebox_index}"><img src="{$Avatar_ImgSrcs}" width="16px" height="16px" alt="" title="Avatar" /></span>{else}<i class="fa fa-user"></i>{/if}
+				<a href="{$submitter_profile_url}">{$link_submitter}{if $submitter_rank neq ''} (#{$submitter_rank}){/if}</a>
 				<i class="fa fa-time"></i>
-				{$link_submit_timeago} {#PLIGG_Visual_Comment_Ago#}
-				
-				<i class="fa fa-folder"></i> 
-				<a href="{$category_url}">{$link_category}</a>
-				{if $link_additional_cats}
-					{foreach from=$link_additional_cats item=catname key=caturl}
-						<a href="{$caturl}">{$catname}</a>
-					{/foreach}
-				{/if}
+				{$link_submit_timeago} {#PLIGG_Visual_Comment_Ago#} -->
 				
 				{if $enable_tags}
 					{if $tags}
-						<i class="fa fa-tag"></i>
 						{section name=thistag loop=$tag_array}
 							{if $tag_array[thistag] neq ''}
 								<a href="{$tags_url_array[thistag]}">{$tag_array[thistag]}</a>
 							{/if}
 						{/section}
 					{/if}
-				{/if}
-				
-				{if $url_short neq "http://" && $url_short neq "://"}
-					<i class="fa fa-globe"></i>
-					<a href="{$url}" {if $open_in_new_window eq true} target="_blank"{/if}  {if $story_status neq "published"}rel="nofollow"{/if}>{$url_short}</a>
 				{/if}
 			</span>
 		</div><!-- /.title -->
@@ -141,6 +143,7 @@
 		{if $pagename eq "story"}{checkActionsTpl location="tpl_pligg_story_body_start_full"}{else}{checkActionsTpl location="tpl_pligg_story_body_start"}{/if}
 		{if $viewtype neq "short"}
 			<div class="news-body-text" id="ls_contents-{$link_shakebox_index}">
+				<p>
 				{if $show_content neq 'FALSE'}
 					{if $pagename eq "story"}
 						{* The nl2br modifier will convert line breaks to <br> tags. http://www.smarty.net/docsv2/en/language.modifier.nl2br.tpl*}
@@ -167,7 +170,7 @@
 				{if $Enable_Extra_Field_14 eq 1}{if $link_field14 neq ""}<br/><b>{$Field_14_Title}:</b> {$link_field14}{/if}{/if}
 				{if $Enable_Extra_Field_15 eq 1}{if $link_field15 neq ""}<br/><b>{$Field_15_Title}:</b> {$link_field15}{/if}{/if}
 				*}
-				{* 
+				{* </p>
 				  {if $pagename neq "story" && $pagename neq "submit"} <div class="floatright"><a class="btn btn-default" href="{$story_url}">{#PLIGG_Visual_Read_More#}</a></div>{/if}
 				*}
 				<div class="clearboth"></div> 
@@ -178,7 +181,7 @@
 	<div class="storyfooter">
 		<div class="story-tools-left">
 			{checkActionsTpl location="tpl_pligg_story_tools_start"}
-			<span id="ls_comments_url-{$link_shakebox_index}">
+			<span id="ls_comments_url-{$link_shakebox_index}" class="footer-action">
 				{if $story_comment_count eq 0}
 					<i class="fa fa-comment"></i> <span id="linksummaryDiscuss"><a href="{$story_url}#discuss" class="comments">{#PLIGG_MiscWords_Discuss#}</a>&nbsp;</span>
 				{/if}
@@ -192,11 +195,15 @@
 			{if $user_logged_in}  
 				<iframe height="0px;" width="0px;" frameborder="0" name="add_stories"></iframe>
 				{if $link_mine eq 0}
-					<i class="fa fa-star"></i> <span id="linksummarySaveLink">
-					<a id="add" linkid="{$link_id}" title="{$title_short}" class="favorite" >{#PLIGG_MiscWords_Save_Links_Save#}</a>
+					<span class="footer-action">
+						<i class="fa fa-star"></i> <span id="linksummarySaveLink">
+						<a id="add" linkid="{$link_id}" title="{$title_short}" class="favorite" >{#PLIGG_MiscWords_Save_Links_Save#}</a>
+					</span>
 				{else}
+				<span class="footer-action">
 					<i class="fa fa-star-o"></i> <span id="linksummaryRemoveLink">
 					<a id="remove" linkid="{$link_id}" title="{$title_short}" class="favorite" >{#PLIGG_MiscWords_Save_Links_Remove#}</a>
+				</span>
 				{/if}
 				</span>&nbsp;
 				<span id="stories-{$link_shakebox_index}" class="label label-success" style="display:none;line-height:1em;">{#PLIGG_MiscWords_Save_Links_Success#}</span>
@@ -206,7 +213,7 @@
 				<span id="linksummaryUnvote"><a href="javascript:{$link_shakebox_javascript_unvote}">{#PLIGG_Visual_Unvote_For_It#}</a></span>&nbsp; 
 			{/if}
 			{if $enable_group eq "true" && $user_logged_in}
-				<span class="group-tool-wrapper">
+				<span class="group-tool-wrapper footer-action">
 					<i class="fa fa-group"></i> 
 					<span class="group_sharing"><a href="javascript://" onclick="{if $get_group_membered}var replydisplay=document.getElementById('group_share-{$link_shakebox_index}').style.display ? '' : 'none';document.getElementById('group_share-{$link_shakebox_index}').style.display = replydisplay;{else}alert('{#PLIGG_Visual_No_Groups#}');{/if}">{#PLIGG_Visual_Group_Share#}</a></span>
 					<span id = "group_share-{$link_shakebox_index}" style="display:none;">
